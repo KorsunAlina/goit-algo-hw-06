@@ -32,7 +32,7 @@ class Record:
         for p in self.phones:
             if p.value==phone:
                 return p
-            return None    
+        return None    
     
     def remove_phone(self, phone_number):
         phone=self.find_phone(phone_number)
@@ -40,13 +40,12 @@ class Record:
     
     def edit_phone(self, phone, new_phone):
         old = self.find_phone(phone)
-        if old:
-            self.remove_phone(old.value)
-            self.add_phone(new_phone)
-            return True
-        else:
-            raise ValueError("Phone number not found.")
-        #return False
+        if not old:
+            raise ValueError("Phone number not found.") 
+        new = Phone(new_phone)  
+        self.remove_phone(old.value)
+        self.phones.append(new)
+        return True
 
            
     def __str__(self):
